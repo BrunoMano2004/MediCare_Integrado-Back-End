@@ -7,18 +7,23 @@ services:
       - "8080:8080"
     depends_on:
       - db
+
+    env_file:
+      - .env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/medicare_integrado
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: Bruno@8401
+      SPRING_DATASOURCE_URL: DB_URL=${DB_URL}
+      SPRING_DATASOURCE_USERNAME: DB_USER=${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: DB_PASS=${DB_PASS}
 
 
   db:
     image: postgres:13
+    env_file:
+      - .env
     environment:
       POSTGRES_DB: medicare_integrado
-      POSTGRES_USER: postgres
-      POSTGRES_PASS: Bruno@8401
+      POSTGRES_USER: DB_USER=${DB_USER}
+      POSTGRES_PASS: DB_PASS=${DB_PASS}
     ports:
       - "5432:5432"
     volumes:
