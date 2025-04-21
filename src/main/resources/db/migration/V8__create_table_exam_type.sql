@@ -1,0 +1,10 @@
+CREATE TABLE exam_type (
+  id UUID PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  duration_minutes INT NOT NULL,
+  specialty_id UUID REFERENCES specialty(id),
+  price DECIMAL(10,2) NOT NULL,
+  material_cost DECIMAL(10,2),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);

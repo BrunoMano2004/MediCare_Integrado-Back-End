@@ -9,30 +9,26 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "app_user")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-public class User {
+public class Bed {
 
     @Id
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false, length = 255)
+    private String number;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleUser roleUser;
+    private Boolean occupied;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)

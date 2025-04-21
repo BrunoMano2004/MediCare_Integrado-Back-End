@@ -3,9 +3,11 @@ package br.com.medicare.integrado.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,22 +18,23 @@ import java.time.LocalDateTime;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @Column(length = 15)
+    private String phone;
 
+    @Column(length = 100)
     private String email;
 
-    @Column(name = "data_nascimento", nullable = false)
-    private String dataNascimento;
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
 
     @JoinColumn(name = "address_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -40,4 +43,8 @@ public class Patient {
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }

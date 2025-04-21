@@ -1,0 +1,8 @@
+CREATE TABLE patient_insurance (
+  id UUID PRIMARY KEY,
+  patient_id UUID REFERENCES patient(id),
+  plan_id UUID REFERENCES plan(id),
+  card_number VARCHAR(50) NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);

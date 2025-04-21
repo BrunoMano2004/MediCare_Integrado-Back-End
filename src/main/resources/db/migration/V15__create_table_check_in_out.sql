@@ -1,0 +1,8 @@
+CREATE TABLE check_in_out (
+  id UUID PRIMARY KEY,
+  datetime TIMESTAMP NOT NULL,
+  type VARCHAR(10) NOT NULL, -- ENUM('IN', 'OUT')
+  hospitalization_id UUID REFERENCES hospitalization(id),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);

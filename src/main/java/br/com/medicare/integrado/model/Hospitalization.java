@@ -5,34 +5,39 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "app_user")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-public class User {
+public class Hospitalization {
 
     @Id
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "admission_date", nullable = false)
+    private LocalDate admissionDate;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(name = "discharge_date")
+    private LocalDate dischargeDate;
 
-    @Column(nullable = false)
-    private String password;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleUser roleUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bed_id")
+    private Bed bed;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)

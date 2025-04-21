@@ -1,3 +1,0 @@
-ALTER TABLE patient
-    ALTER COLUMN cpf SET NOT NULL,
-    ADD CONSTRAINT unique_cpf UNIQUE (cpf);

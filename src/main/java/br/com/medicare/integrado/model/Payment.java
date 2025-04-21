@@ -9,30 +9,48 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "app_user")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-public class User {
+public class Payment {
 
     @Id
     @GeneratedValue
     private UUID id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+    private Double amount;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private RoleUser roleUser;
+    private MethodPayment method;
+
+    @Column(nullable = false)
+    private LocalDateTime datetime;
+
+    private String description;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusPayment status;
+
+    @Column(name = "transaction_code")
+    private String transactionCode;
+
+    @Column(name = "pagseguro_payment_url")
+    private String pagseguroPaymentUrl;
+
+    @Column(name = "pagseguro_checkout_url")
+    private String pagseguroCheckoutUrl;
+
+    @Column(name = "payment_method_details")
+    private String paymentMethodDetails;
+
+    @JoinColumn(name = "patient_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Patient patient;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)

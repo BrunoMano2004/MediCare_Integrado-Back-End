@@ -9,30 +9,29 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "app_user")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-public class User {
+@Table(name = "exam_type")
+public class ExamType {
 
     @Id
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, length = 255)
     private String name;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(name = "duration_minutes")
+    private Integer durationMinutes;
 
     @Column(nullable = false)
-    private String password;
+    private Double price;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleUser roleUser;
+    @Column(name = "material_cost")
+    private Double materialCost;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)

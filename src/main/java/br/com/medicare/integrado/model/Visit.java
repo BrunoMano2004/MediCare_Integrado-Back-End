@@ -1,6 +1,7 @@
 package br.com.medicare.integrado.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -9,30 +10,30 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "app_user")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-public class User {
+public class Visit {
 
     @Id
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false, name = "entry_time")
+    private LocalDateTime entryTime;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(name = "exit_time")
+    private LocalDateTime exitTime;
 
-    @Column(nullable = false)
-    private String password;
+    @JoinColumn(name = "visitor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Visitor visitor;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleUser roleUser;
+    @JoinColumn(name = "hospitalization_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Hospitalization hospitalization;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
