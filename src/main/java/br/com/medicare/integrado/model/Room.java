@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,6 +30,9 @@ public class Room {
     @JoinColumn(name = "hospital_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Hospital hospital;
+
+    @OneToMany(mappedBy = "room")
+    private List<Bed> beds = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
